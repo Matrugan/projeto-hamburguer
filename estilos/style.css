@@ -1,0 +1,131 @@
+@charset "UTF-8";
+
+:root{
+    --principal: black;
+    --secund: yellow;
+    --text: white;
+    --sombra: rgba(0, 0, 0, 0.285) ;
+    --text_inv:rgb(128, 128, 128);
+
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    font-family: 'Bebas Neue', sans-serif;
+}
+
+a{
+    text-decoration: none;
+}
+
+header{
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    text-align: center;
+    height: auto;
+    width: 100vw;
+    background-color: var(--principal);
+    color: var(--text);
+}
+
+#logo > img{
+    height: 90px;
+    width: 90px;
+    padding: 15px;
+}
+
+header > nav > ul{
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 100px;
+    width: 50vw;
+    list-style: none;
+}
+
+#burguer{
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    height: 400px;
+    width: 100vw;
+    background: url(../imagem/back-princ.jpeg) no-repeat center center;
+    background-size: cover;
+    color: var(--text);
+}
+
+#burguer>h1{
+    font-size: 8em;
+    font-weight: bold;
+}
+
+#burguer > p {
+    font-size: 0.9em;
+}
+
+#burguer > a{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    height: 50px;
+    width: 200px;
+    background-color: var(--secund);
+    color: var(--text);
+    border-radius: 5px;
+    box-shadow: 2px 2px 10px var(--sombra);
+}
+
+#about{
+    margin: auto;
+    height: 700px;
+    width: 100vw;
+}
+
+#about > h1{
+    text-align: center;
+    font-size: 8em;
+    color: var(--text_inv);
+}
+
+#containerus{
+    width: 100vw;
+    height: 500px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.hamburguer > img{
+    height: 500px;
+    width: 500px;
+    background-size: cover;
+}
+
+.nos > h3{
+    width: 70px;
+    height: 50px;
+    background-color: var(--secund);
+    margin: 10px;
+}
+
+.nos > h2{
+    margin: 10px;
+    font-weight:normal ;
+}
+
+.nos > h1{
+    margin: 5px 10px;
+    font-size: 5.5em;
+}
+
+.nos > p{
+    margin: 5px 10px;
+}
