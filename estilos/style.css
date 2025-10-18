@@ -110,10 +110,11 @@ header > nav > ul{
 }
 
 .nos > h3{
-    width: 70px;
-    height: 50px;
+    width: 80px;
+    height: 25px;
     background-color: var(--secund);
     margin: 10px;
+    text-align: center;
 }
 
 .nos > h2{
@@ -127,5 +128,47 @@ header > nav > ul{
 }
 
 .nos > p{
-    margin: 5px 10px;
+    margin: 20px 10px;
+}
+
+.nos > a{
+    margin: 40px 10px;
+    width: 150px;
+    height: 100px;
+    padding: 10px;
+    background-color: var(--secund);
+    color: var(--text);
+    border-radius: 5px;
+    box-shadow: 2px 2px 5px var(--sombra);
+}
+
+#services{
+    width: 100vw;
+    height: 700px;
+    border: 1px dashed black;
+}
+
+#services > h1{
+    font-size: 8em;
+    text-align: center;
+    color: var(--text_inv);
+}
+
+
+#containerserv{
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 0;
+}
+
+.tx{
+    height: 300px;
+    width: 50vw;
+}
+
+.imghamb > img{
+    height: 300px;
+    width: 40vw;
 }
