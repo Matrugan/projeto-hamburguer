@@ -172,6 +172,31 @@
       order: 1;
       padding: 0; /* Remove padding que possa vazar */
   }
+
+  /* NOVO: Ajuste para a seção PARALLEX no mobile para evitar rolagem lateral */
+  #containerpara .img {
+    width: 100%; /* Garante que o container da imagem ocupe toda a largura */
+    display: flex;
+    flex-direction: column; /* Garante que as imagens fiquem empilhadas */
+    align-items: center; /* Centraliza as imagens */
+    gap: 20px; /* Espaçamento entre as imagens */
+    margin-bottom: 20px; /* Adiciona espaço entre as imagens e o texto "SPECIAL" */
+  }
+
+  /* NOVO: Torna as divs de imagem responsivas */
+  .opc1, .opc2 {
+    width: 100%; /* Força a largura a preencher o container (.img) */
+    max-width: 320px; /* Limita ao tamanho original para telas maiores que 320px */
+    margin: 0; /* Remove qualquer margem que possa causar overflow */
+  }
+  
+}
+  
+  /* Garante que o bloco de texto (.tx) fique em primeiro lugar */
+  #parallex .tx {
+      order: 1;
+      padding: 0; /* Remove padding que possa vazar */
+  }
 }
     @media (max-width:800px){
   header{
