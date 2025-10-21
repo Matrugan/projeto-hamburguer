@@ -151,6 +151,7 @@
     top: var(--header-h); 
     left: 0;
     width: 100%;
+    padding: 10px;
     max-height: calc(100vh - var(--header-h));
     overflow-y: auto; 
     background: var(--bg-2);
@@ -200,18 +201,14 @@
     opacity: 1;
     visibility: visible;
   }
-
-  body {
-    font-family: 'Montserrat', system-ui, Arial, Helvetica, sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    /* CORREÇÃO: Impede a rolagem horizontal causada por elementos que vazam */
-    overflow-x: hidden; 
-}
   
   /* Regras de estilo não relacionadas ao menu para manter a referência */
   /* LINHA REDUNDANTE REMOVIDA AQUI */ 
   .play-btn{width:64px;height:64px}
   .video-container{height:300px}
   #modalGaleria img{max-width:95vw}
+  section {
+        padding: 20px; /* Ajuste o padding para seções */
+        margin: 0 auto; /* Centraliza a seção */
+    }
 }
