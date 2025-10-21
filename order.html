@@ -6,7 +6,7 @@
   <title>Order — Burguer House</title>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <style>
+<style>
     :root{
       --bg:#080707; --bg-2:#0f0f10; --accent:#ffb84c; --text:#fff; --muted:rgba(255,255,255,0.78); --card:#0b0b0b;
       --header-h:90px;
@@ -16,99 +16,211 @@
     a{color:inherit;text-decoration:none}
 
     /* header (copy style from main site) */
-    header{position:fixed;inset:0 0 auto 0;height:var(--header-h);display:flex;align-items:center;justify-content:space-between;padding:10px 28px;background:rgba(8,7,7,0.35);backdrop-filter:blur(6px);z-index:9999;border-bottom:1px solid rgba(255,255,255,0.03)}
-    header.scrolled{background:linear-gradient(180deg, rgba(12,12,12,0.98), rgba(12,12,12,0.98));box-shadow:0 6px 30px rgba(0,0,0,0.7)}
-    #logo img{height:64px;width:64px;border-radius:8px}
-    nav ul{display:flex;gap:14px;align-items:center;list-style:none}
-    nav li{padding:6px 10px;border-radius:6px}
-    nav li:hover{background:rgba(255,184,76,0.04)}
-    .btn-primary{font-weight:700;padding:8px 12px;border-radius:8px;border:2px solid var(--accent);background:transparent;color:var(--accent)}
+    header{position:fixed;inset:0 0 auto 0;height:var(--header-h);display:flex;align-items:center;justify-content:space-between;padding:10px 40px;z-index:9999;
+      background:rgba(8,7,7,0.35);
+      -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
+      border-bottom:1px solid rgba(255,255,255,0.03);
+    }
+    nav ul{display:flex;gap:18px;align-items:center;list-style:none}
+    #logo img{width:140px;height:auto}
+    
+    /* Menu Toggle (Mobile) */
+    .menu-toggle { display: none; cursor: pointer; color: var(--text); font-size: 24px; z-index: 1000; }
 
-    /* page layout */
-    main{display:flex;gap:28px;padding:calc(var(--header-h) + 28px) 6vw 60px 6vw;max-width:1200px;margin:0 auto}
-    /* product grid */
-    .catalog{flex:1}
-    .catalog-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:18px}
-
-    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);border-radius:12px;padding:14px;display:flex;flex-direction:column;gap:10px;box-shadow:0 10px 30px rgba(0,0,0,0.6)}
-    .card img{width:100%;height:160px;object-fit:cover;border-radius:8px}
-    .card h3{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;margin-top:4px}
-    .card p{color:var(--muted);font-size:0.90rem}
-    .card .meta{display:flex;justify-content:space-between;align-items:center;margin-top:auto}
-    .price{font-weight:700;color:var(--accent)}
-    .add-btn{padding:8px 12px;border-radius:8px;border:2px solid var(--accent);background:transparent;color:var(--accent);cursor:pointer}
-    .add-btn:active{transform:scale(0.98)}
-
-    /* cart trigger */
-    .cart-trigger{position:fixed;top:18px;right:24px;z-index:12000;display:flex;align-items:center;gap:8px}
-    .cart-button { background: transparent; border: 2px solid rgba(255,255,255,0.06);padding: 10px 12px;border-radius: 10px;color: var(--muted);display: flex;align-items: center;gap: 8px;cursor: pointer;}
-    .cart-count{background:var(--accent);color:#0b0b0b;padding:6px 8px;border-radius:8px;font-weight:700}
-
-    /* sliding cart (C2) */
-    .cart-slide{position:fixed;top:0;right:-420px;width:420px;height:100vh;background:linear-gradient(180deg,var(--bg-2),#070707);box-shadow:-20px 0 60px rgba(0,0,0,0.7);z-index:13000;transition:right 0.35s;display:flex;flex-direction:column}
+    /* Order Cart */
+    #cartToggle{font-size:24px;cursor:pointer}
+    .cart-button{
+        position: relative; /* Para posicionar o contador do carrinho */
+        cursor: pointer;
+        font-size: 24px;
+        color: var(--text);
+        margin-left: 15px; /* Para separar do menu, se necessário */
+    }
+    .cart-count{
+        position: absolute;
+        top: -8px;
+        right: -8px;
+        background: var(--accent);
+        color: var(--bg);
+        border-radius: 50%;
+        font-size: 12px;
+        padding: 2px 6px;
+        font-weight: bold;
+        line-height: 1;
+    }
+    .cart-slide{position:fixed;top:0;right:-400px;width:100%;max-width:400px;height:100%;background:var(--bg-2);z-index:99999;box-shadow:-4px 0 10px rgba(0,0,0,0.5);display:flex;flex-direction:column;transition:right 0.3s ease}
     .cart-slide.open{right:0}
-    .cart-header{display:flex;justify-content:space-between;align-items:center;padding:22px 18px;border-bottom:1px solid rgba(255,255,255,0.03)}
-    .cart-body{flex:1;overflow:auto;padding:18px}
-    .cart-empty{color:var(--muted);text-align:center;padding:40px}
-    .cart-item{display:flex;gap:12px;align-items:center;padding:12px;border-radius:8px;margin-bottom:12px;background:rgba(255,255,255,0.02)}
-    .cart-item img{width:72px;height:72px;object-fit:cover;border-radius:8px}
-    .cart-item .info{flex:1}
-    .qty-controls{display:flex;gap:8px;align-items:center}
-    .qty-controls button{padding:6px 8px;border-radius:6px;border:1px solid rgba(255,255,255,0.05);background:transparent;color:var(--muted);cursor:pointer}
-    .cart-footer{padding:18px;border-top:1px solid rgba(255,255,255,0.03)}
-    .total{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
-    .checkout-btn{width:100%;padding:12px;border-radius:8px;border:2px solid var(--accent);background:transparent;color:var(--accent);font-weight:700;cursor:pointer}
+    .cart-slide-header{padding:20px;border-bottom:1px solid var(--card);display:flex;justify-content:space-between;align-items:center}
+    #closeCart{cursor:pointer;font-size:24px}
+    .cart-items{padding:20px;flex-grow:1;overflow-y:auto}
+    .cart-item{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;padding:8px 0;border-bottom:1px dotted var(--card)}
+    .cart-item img{width: 60px; height: 60px; object-fit: cover; border-radius: 4px; margin-right: 15px;}
+    .cart-item .info{flex-grow: 1;}
+    .cart-item-info span{color:var(--muted);font-size:12px}
+    .cart-item-qty{display:flex;align-items:center}
+    .qty-controls{display:flex;align-items:center;margin-left: 15px;}
+    .qty-controls button{background:var(--card);color:var(--text);border:none;padding:5px 8px;cursor:pointer;margin:0 5px;font-weight:bold; border-radius: 4px;}
 
-    /* small screens */
-    @media (max-width:900px){main{padding:calc(var(--header-h) + 18px) 18px 60px 18px;flex-direction:column} .cart-slide{width:100%;right:-100%}.cart-slide.open{right:0}}
+    .cart-summary{padding:20px;border-top:1px solid var(--card)}
+    .cart-summary p{display:flex;justify-content:space-between;font-weight:bold}
+    #checkoutBtn{width:100%;padding:10px;background:var(--accent);color:var(--bg);border:none;cursor:pointer;margin-top:10px;font-size:16px;font-weight:700;border-radius:4px;transition:background 0.2s}
+    #checkoutBtn:hover{background:var(--accent-2)}
 
+    /* Main Content */
+    main{padding-top:var(--header-h);padding-bottom:50px}
+    .catalog-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:30px;max-width:1200px;margin:30px auto;padding:0 20px}
+    .card{background:var(--bg-2);padding:20px;border-radius:8px;text-align:center;box-shadow:0 4px 8px rgba(0,0,0,0.5)}
+    .card img{width:100%;height:200px;object-fit:cover;border-radius:6px;margin-bottom:15px}
+    .card h3{font-family:'Bebas Neue',sans-serif;font-size:2rem;color:var(--accent);margin-bottom:5px}
+    .card p{color:var(--muted);font-size:0.9rem;margin-bottom:10px}
+    .card .meta{display:flex;justify-content:space-between;align-items:center;margin-top:15px}
+    .card .price{font-size:1.5rem;font-weight:bold;color:var(--text)}
+    .card .add-btn{background:var(--accent);color:var(--bg);border:none;padding:8px 15px;cursor:pointer;border-radius:4px;font-weight:600;transition:background 0.2s}
+    .card .add-btn:hover{background:var(--accent-2)}
+    
+    /* Media Queries for Mobile Menu */
+    @media (max-width:800px){
+      header{padding:10px 18px; height: var(--header-h); align-items: center;} 
+      
+      nav {
+        position: fixed;
+        top: var(--header-h); 
+        left: 0;
+        width: 100%;
+        max-height: calc(100vh - var(--header-h));
+        overflow-y: auto; 
+        background: var(--bg-2);
+        transform: translateY(-100%);
+        visibility: hidden; 
+        transition: transform 0.3s ease, visibility 0.3s; 
+        z-index: 999; 
+      }
+
+      nav.open {
+        transform: translateY(0);
+        visibility: visible; 
+      }
+
+      nav ul {
+        flex-direction: column;
+        align-items: center;
+        padding: 20px 0;
+        gap: 14px;
+      }
+
+      .menu-toggle {
+        display: block; 
+      }
+      
+      /* Overlay (fundo escuro) */
+      .menu-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.7); 
+        z-index: 998; 
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s, visibility 0.3s;
+      }
+
+      .menu-overlay.open {
+        opacity: 1;
+        visibility: visible;
+      }
+      
+      .catalog-grid{grid-template-columns:1fr;gap:20px}
+      .cart-slide{max-width:100%}
+    }
   </style>
 </head>
 <body>
 <header id="siteHeader">
-  <div id="logo"><a href="index.html"><img src="imagem/logo.webp" alt="logo"></a></div>
+  <div id="logo"><img src="imagem/logo.webp" alt="logo"></div>
+
+  <div id="menuToggle" class="menu-toggle">
+    <i class="fa-solid fa-bars"></i>
+  </div>
+
   <nav>
     <ul>
       <li><a href="index.html#burguer">Home</a></li>
       <li><a href="index.html#about">About</a></li>
       <li><a href="index.html#services">Services</a></li>
+      <li><a href="index.html#parallex">Special</a></li>
       <li><a href="index.html#galeria">Gallery</a></li>
-      <li><a href="orders.html" class="btn-primary">Order</a></li>
+      <li><a href="index.html#contato">Contact</a></li>
+      <li><a class="btn-primary" href="order.html">Order</a></li>
     </ul>
   </nav>
-  
-  <!-- carrinho dentro do header -->
+
   <div class="cart-button" id="cartToggle">
     <i class="fa-solid fa-cart-shopping"></i> 
     <span class="cart-count" id="cartCount">0</span>
   </div>
 </header>
+<div id="menuOverlay" class="menu-overlay"></div> 
+
   <main>
     <section class="catalog">
-      <h2 style="font-family:'Bebas Neue',sans-serif;font-size:2.6rem;margin-bottom:14px">Menu</h2>
+      <h2 style="font-family:'Bebas Neue',sans-serif;font-size:2.6rem;margin-bottom:14px; text-align: center;">Menu</h2>
       <div class="catalog-grid" id="productGrid">
-        <!-- product cards injected by JS -->
-      </div>
+        </div>
     </section>
   </main>
 
-  <!-- sliding cart -->
   <aside class="cart-slide" id="cartSlide">
-    <div class="cart-header">
+    <div class="cart-slide-header">
       <strong>Your Cart</strong>
-      <button id="closeCart" style="background:transparent;border:none;color:var(--muted);cursor:pointer;font-size:1.2rem">Close &times;</button>
+      <div id="closeCart" style="cursor:pointer;font-size:24px">&times;</div>
     </div>
-    <div class="cart-body" id="cartBody">
-      <div class="cart-empty" id="cartEmpty">No items yet. Add something from the menu.</div>
+    <div class="cart-items" id="cartBody">
+      <div class="cart-empty" id="cartEmpty" style="color:var(--muted); text-align: center; margin-top: 20px;">No items yet. Add something from the menu.</div>
     </div>
-    <div class="cart-footer">
-      <div class="total"><span style="color:var(--muted)">Total</span><span id="cartTotal" style="font-weight:700;color:var(--accent)">$0.00</span></div>
-      <button class="checkout-btn" id="checkoutBtn">Checkout</button>
+    <div class="cart-summary">
+      <p>Total <span id="cartTotal" style="font-weight:700;color:var(--accent)">$0.00</span></p>
+      <button id="checkoutBtn">Checkout</button>
     </div>
   </aside>
 
   <script>
-    // --- sample products ---
+    // --- VARIÁVEIS DO MENU E HEADER ---
+    const menuToggle = document.getElementById('menuToggle');
+    const nav = document.querySelector('header nav');
+    const menuOverlay = document.getElementById('menuOverlay'); 
+    const header = document.getElementById('siteHeader');
+
+    // --- FUNÇÕES DO MENU HAMBURGUER ---
+    function toggleMenu() {
+      nav.classList.toggle('open');
+      menuOverlay.classList.toggle('open');
+      
+      const icon = menuToggle.querySelector('i');
+      icon.classList.toggle('fa-bars');
+      icon.classList.toggle('fa-xmark');
+    }
+
+    // Eventos de clique do menu
+    if (menuToggle) {
+        menuToggle.addEventListener('click', toggleMenu);
+    }
+    if (menuOverlay) {
+        menuOverlay.addEventListener('click', toggleMenu); 
+    }
+    
+    // Fechar o menu ao clicar em um link
+    nav.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        if (nav.classList.contains('open')) {
+          toggleMenu(); 
+        }
+      });
+    });
+
+    // --- CÓDIGO DO CARRINHO E PRODUTOS ---
+    
     const products = [
       {id:1,name:'Classic Beef',desc:'100% beef, cheese, lettuce, house sauce',price:12.50,img:'imagem/galeria/hamb1.jpg'},
       {id:2,name:'Smoky BBQ',desc:'Beef, smoked bacon, caramelized onion, BBQ',price:14.00,img:'imagem/galeria/hamb2.webp'},
@@ -118,10 +230,9 @@
       {id:6,name:'Sweet Heat',desc:'Beef, jalapeño, honey mustard',price:13.00,img:'imagem/galeria/hamb4.jpg'}
     ];
 
-    // --- render products ---
     const grid = document.getElementById('productGrid');
     products.forEach(p=>{
-      const card = document.createElement('div'); card.className='card';
+      const card = document.createElement('div'); card.className='menu-item card';
       card.innerHTML = `
         <img src="${p.img}" alt="${p.name}">
         <h3>${p.name}</h3>
@@ -133,8 +244,7 @@
       grid.appendChild(card);
     });
 
-    // --- cart handling (E3: local only) ---
-    let cart = JSON.parse(localStorage.getItem('bh_cart') || '{}'); // {id:qty}
+    let cart = JSON.parse(localStorage.getItem('bh_cart') || '{}'); 
 
     const cartCount = document.getElementById('cartCount');
     const cartSlide = document.getElementById('cartSlide');
@@ -142,15 +252,20 @@
     const cartEmpty = document.getElementById('cartEmpty');
     const cartTotal = document.getElementById('cartTotal');
     const checkoutBtn = document.getElementById('checkoutBtn');
+    const cartToggle = document.getElementById('cartToggle'); 
+    const closeCartBtn = document.getElementById('closeCart'); // Variável já definida
 
     function saveCart(){ localStorage.setItem('bh_cart', JSON.stringify(cart)); }
     function getCartItems(){ return Object.keys(cart).map(id=>{ const prod = products.find(p=>p.id==id); return {...prod, qty:cart[id]}; }); }
+    
     function updateCartUI(){
       const items = getCartItems();
       cartCount.textContent = items.reduce((s,i)=>s+i.qty,0);
-      // render body
+      
       cartBody.innerHTML='';
-      if(items.length===0){ cartBody.appendChild(cartEmpty); cartTotal.textContent='$0.00'; return; }
+      if(items.length===0){ cartBody.appendChild(cartEmpty); cartTotal.textContent='$0.00'; cartEmpty.style.display='block'; return; }
+      cartEmpty.style.display='none';
+
       items.forEach(it=>{
         const div = document.createElement('div'); div.className='cart-item';
         div.innerHTML = `
@@ -166,41 +281,62 @@
           </div>`;
         cartBody.appendChild(div);
       });
-      // attach qty handlers
       cartBody.querySelectorAll('.inc').forEach(b=>b.addEventListener('click',()=>{ const id=b.dataset.id; cart[id]= (cart[id]||0)+1; saveCart(); updateCartUI(); }));
       cartBody.querySelectorAll('.dec').forEach(b=>b.addEventListener('click',()=>{ const id=b.dataset.id; cart[id]= (cart[id]||0)-1; if(cart[id]<=0) delete cart[id]; saveCart(); updateCartUI(); }));
       const total = items.reduce((s,i)=>s + i.price*i.qty,0); cartTotal.textContent = '$'+total.toFixed(2);
     }
 
-    // initial UI
     updateCartUI();
 
-    // add to cart buttons
     document.querySelectorAll('.add-btn').forEach(btn=>{
       btn.addEventListener('click', ()=>{
         const id = btn.dataset.id; cart[id] = (cart[id]||0)+1; saveCart(); updateCartUI();
-        // brief feedback
         btn.textContent='Added'; setTimeout(()=>btn.textContent='Add to cart',900);
       });
     });
 
-    // open/close cart
-    document.getElementById('cartToggle').addEventListener('click', ()=>{ cartSlide.classList.toggle('open'); });
-    document.getElementById('closeCart').addEventListener('click', ()=>{ cartSlide.classList.remove('open'); });
+    // --- CORREÇÃO FINAL: Abrir/Fechar carrinho ---
+    
+    // Agora usa TOGGLE: clicar no ícone do carrinho abre E FECHA.
+    cartToggle.addEventListener('click', ()=>{ 
+        cartSlide.classList.toggle('open'); 
+    });
+    
+    // Fechar carrinho ao clicar no 'X'
+    closeCartBtn.addEventListener('click', (e)=>{ 
+        // Adiciona stopPropagation para garantir que este evento finalize aqui e não seja bloqueado por pais
+        e.stopPropagation(); 
+        cartSlide.classList.remove('open'); 
+    });
+    
+    // Adiciona funcionalidade de fechar o carrinho ao clicar no próprio slide (se o clique for no fundo)
+    cartSlide.addEventListener('click', (e) => {
+        if (e.target === cartSlide) {
+            cartSlide.classList.remove('open');
+        }
+    });
+    // --- FIM CORREÇÃO FINAL ---
+    
 
-    // checkout (E3: local only) - for now show a summary and clear cart
+    // Checkout (Demo)
     checkoutBtn.addEventListener('click', ()=>{
       const items = getCartItems(); if(items.length===0){ alert('Your cart is empty.'); return; }
-      // show basic summary
       const summary = items.map(it=> `${it.qty} x ${it.name} — $${(it.price*it.qty).toFixed(2)}`).join('\n');
       const total = items.reduce((s,i)=>s + i.price*i.qty,0);
-      const confirmed = confirm(`Order summary:\n\n${summary}\n\nTotal: $${total.toFixed(2)}\n\nThis demo saves the order locally (E3). Click OK to clear the cart.`);
+      const confirmed = confirm(`Order summary:\n\n${summary}\n\nTotal: $${total.toFixed(2)}\n\n(Demo) Click OK to clear the cart.`);
       if(confirmed){ cart = {}; saveCart(); updateCartUI(); cartSlide.classList.remove('open'); alert('Order cleared (demo mode).'); }
     });
 
-    // keep header on top like before
-    const header = document.getElementById('siteHeader');
-    window.addEventListener('scroll', ()=>{ if(window.scrollY>30) header.classList.add('scrolled'); else header.classList.remove('scrolled'); });
+    // Manter o header no topo (efeito scroll)
+    window.addEventListener('scroll', ()=>{ 
+        if(window.scrollY > 30) { 
+            header.classList.add('scrolled'); 
+        } else { 
+            header.classList.remove('scrolled'); 
+        }
+    });
+
+    document.addEventListener('DOMContentLoaded', ()=>{ header.style.zIndex = 9999; });
 
   </script>
 </body>
