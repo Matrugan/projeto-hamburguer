@@ -88,7 +88,13 @@
 
     /* ===== PARALLAX / SPECIAL ===== */
     #parallex{padding:80px 6vw;background-image:url('../imagem/backgroundpara.png');background-size:cover; background-position: center center;}
-    #containerpara{display:flex;gap:30px;align-items:center;max-width:1200px;margin:0 auto}
+    #containerpara {
+        display: grid;
+        grid-template-columns: 1fr 1fr; /* Assume-se que você está usando 2 colunas no desktop */
+        gap: 20px;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
     .opc1,.opc2{width:320px;height:420px;border-radius:12px;background-size:cover;background-position:center;box-shadow:0 20px 50px rgba(0,0,0,0.6)}
     .opc1{background-image:url('../imagem/opc1.jpg')}
     .opc2{background-image:url('../imagem/opc2.webp')}
@@ -139,16 +145,34 @@
     footer p{color:var(--muted)}
     footer a i{color:var(--muted);margin-left:12px}
 
-    /* Responsive */
     @media (max-width:1000px){
-      #containerus,#containerserv,#containerpara,#containertest,#containercontato{grid-template-columns:1fr}
-      #containerus{display:block}
-      #about h1,#services h1{font-size:3rem}
-      #burguer h1{font-size:3.6rem}
-      .tx{width:100%}
-      .imghamb{display:none}
-    }
-
+  /* Força todos os containers (incluindo o #containerpara) a terem 1 coluna */
+  #containerus,#containerserv,#containerpara,#containertest,#containercontato{
+    grid-template-columns:1fr;
+    /* Adiciona padding interno para mobile (se não tiver) */
+    padding: 30px 20px;
+  }
+  
+  /* Garante que o texto ocupe toda a largura no mobile */
+  .tx{width:100%}
+  
+  /* CORREÇÃO: Faz a imagem aparecer novamente, se você quiser empilhar */
+  .imghamb{
+    display:block; 
+    width: 100%;
+    /* Garante que a imagem não vaze */
+    max-width: 100%;
+    height: auto;
+    /* Ajusta a ordem para que o texto fique ACIMA da imagem (primeiro elemento) */
+    order: 2; 
+  }
+  
+  /* Garante que o bloco de texto (.tx) fique em primeiro lugar */
+  #parallex .tx {
+      order: 1;
+      padding: 0; /* Remove padding que possa vazar */
+  }
+}
     @media (max-width:800px){
   header{
     /* Volta para o layout original (logo e menu-toggle lado a lado) */
