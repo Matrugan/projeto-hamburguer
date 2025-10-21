@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Order — Burguer House</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    :root{
+      --bg:#080707; --bg-2:#0f0f10; --accent:#ffb84c; --text:#fff; --muted:rgba(255,255,255,0.78); --card:#0b0b0b;
+      --header-h:90px;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'Montserrat',system-ui,Arial,Helvetica,sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+    a{color:inherit;text-decoration:none}
+
+    /* header (copy style from main site) */
+    header{position:fixed;inset:0 0 auto 0;height:var(--header-h);display:flex;align-items:center;justify-content:space-between;padding:10px 28px;background:rgba(8,7,7,0.35);backdrop-filter:blur(6px);z-index:9999;border-bottom:1px solid rgba(255,255,255,0.03)}
+    header.scrolled{background:linear-gradient(180deg, rgba(12,12,12,0.98), rgba(12,12,12,0.98));box-shadow:0 6px 30px rgba(0,0,0,0.7)}
+    #logo img{height:64px;width:64px;border-radius:8px}
+    nav ul{display:flex;gap:14px;align-items:center;list-style:none}
+    nav li{padding:6px 10px;border-radius:6px}
+    nav li:hover{background:rgba(255,184,76,0.04)}
+    .btn-primary{font-weight:700;padding:8px 12px;border-radius:8px;border:2px solid var(--accent);background:transparent;color:var(--accent)}
+
+    /* page layout */
+    main{display:flex;gap:28px;padding:calc(var(--header-h) + 28px) 6vw 60px 6vw;max-width:1200px;margin:0 auto}
+    /* product grid */
+    .catalog{flex:1}
+    .catalog-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:18px}
+
+    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);border-radius:12px;padding:14px;display:flex;flex-direction:column;gap:10px;box-shadow:0 10px 30px rgba(0,0,0,0.6)}
+    .card img{width:100%;height:160px;object-fit:cover;border-radius:8px}
+    .card h3{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;margin-top:4px}
+    .card p{color:var(--muted);font-size:0.90rem}
+    .card .meta{display:flex;justify-content:space-between;align-items:center;margin-top:auto}
+    .price{font-weight:700;color:var(--accent)}
+    .add-btn{padding:8px 12px;border-radius:8px;border:2px solid var(--accent);background:transparent;color:var(--accent);cursor:pointer}
+    .add-btn:active{transform:scale(0.98)}
+
+    /* cart trigger */
+    .cart-trigger{position:fixed;top:18px;right:24px;z-index:12000;display:flex;align-items:center;gap:8px}
+    .cart-button { background: transparent; border: 2px solid rgba(255,255,255,0.06);padding: 10px 12px;border-radius: 10px;color: var(--muted);display: flex;align-items: center;gap: 8px;cursor: pointer;}
+    .cart-count{background:var(--accent);color:#0b0b0b;padding:6px 8px;border-radius:8px;font-weight:700}
+
+    /* sliding cart (C2) */
+    .cart-slide{position:fixed;top:0;right:-420px;width:420px;height:100vh;background:linear-gradient(180deg,var(--bg-2),#070707);box-shadow:-20px 0 60px rgba(0,0,0,0.7);z-index:13000;transition:right 0.35s;display:flex;flex-direction:column}
+    .cart-slide.open{right:0}
+    .cart-header{display:flex;justify-content:space-between;align-items:center;padding:22px 18px;border-bottom:1px solid rgba(255,255,255,0.03)}
+    .cart-body{flex:1;overflow:auto;padding:18px}
+    .cart-empty{color:var(--muted);text-align:center;padding:40px}
+    .cart-item{display:flex;gap:12px;align-items:center;padding:12px;border-radius:8px;margin-bottom:12px;background:rgba(255,255,255,0.02)}
+    .cart-item img{width:72px;height:72px;object-fit:cover;border-radius:8px}
+    .cart-item .info{flex:1}
+    .qty-controls{display:flex;gap:8px;align-items:center}
+    .qty-controls button{padding:6px 8px;border-radius:6px;border:1px solid rgba(255,255,255,0.05);background:transparent;color:var(--muted);cursor:pointer}
+    .cart-footer{padding:18px;border-top:1px solid rgba(255,255,255,0.03)}
+    .total{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+    .checkout-btn{width:100%;padding:12px;border-radius:8px;border:2px solid var(--accent);background:transparent;color:var(--accent);font-weight:700;cursor:pointer}
+
+    /* small screens */
+    @media (max-width:900px){main{padding:calc(var(--header-h) + 18px) 18px 60px 18px;flex-direction:column} .cart-slide{width:100%;right:-100%}.cart-slide.open{right:0}}
+
+  </style>
+</head>
+<body>
+<header id="siteHeader">
+  <div id="logo"><a href="index.html"><img src="imagem/logo.webp" alt="logo"></a></div>
+  <nav>
+    <ul>
+      <li><a href="index.html#burguer">Home</a></li>
+      <li><a href="index.html#about">About</a></li>
+      <li><a href="index.html#services">Services</a></li>
+      <li><a href="index.html#galeria">Gallery</a></li>
+      <li><a href="orders.html" class="btn-primary">Order</a></li>
+    </ul>
+  </nav>
+  
+  <!-- carrinho dentro do header -->
+  <div class="cart-button" id="cartToggle">
+    <i class="fa-solid fa-cart-shopping"></i> 
+    <span class="cart-count" id="cartCount">0</span>
+  </div>
+</header>
+  <main>
+    <section class="catalog">
+      <h2 style="font-family:'Bebas Neue',sans-serif;font-size:2.6rem;margin-bottom:14px">Menu</h2>
+      <div class="catalog-grid" id="productGrid">
+        <!-- product cards injected by JS -->
+      </div>
+    </section>
+  </main>
+
+  <!-- sliding cart -->
+  <aside class="cart-slide" id="cartSlide">
+    <div class="cart-header">
+      <strong>Your Cart</strong>
+      <button id="closeCart" style="background:transparent;border:none;color:var(--muted);cursor:pointer;font-size:1.2rem">Close &times;</button>
+    </div>
+    <div class="cart-body" id="cartBody">
+      <div class="cart-empty" id="cartEmpty">No items yet. Add something from the menu.</div>
+    </div>
+    <div class="cart-footer">
+      <div class="total"><span style="color:var(--muted)">Total</span><span id="cartTotal" style="font-weight:700;color:var(--accent)">$0.00</span></div>
+      <button class="checkout-btn" id="checkoutBtn">Checkout</button>
+    </div>
+  </aside>
+
+  <script>
+    // --- sample products ---
+    const products = [
+      {id:1,name:'Classic Beef',desc:'100% beef, cheese, lettuce, house sauce',price:12.50,img:'imagem/galeria/hamb1.jpg'},
+      {id:2,name:'Smoky BBQ',desc:'Beef, smoked bacon, caramelized onion, BBQ',price:14.00,img:'imagem/galeria/hamb2.webp'},
+      {id:3,name:'Chicken Grilled',desc:'Marinated chicken breast, lettuce, tomato',price:11.00,img:'imagem/hamburguer-nos.png'},
+      {id:4,name:'Veggie Delight',desc:'Grilled veggie patty, arugula, avocado',price:10.00,img:'imagem/galeria/hamb5.jpg'},
+      {id:5,name:'Double Cheese',desc:'Double beef patty, double cheese, pickles',price:16.00,img:'imagem/galeria/hamb3.jpg'},
+      {id:6,name:'Sweet Heat',desc:'Beef, jalapeño, honey mustard',price:13.00,img:'imagem/galeria/hamb4.jpg'}
+    ];
+
+    // --- render products ---
+    const grid = document.getElementById('productGrid');
+    products.forEach(p=>{
+      const card = document.createElement('div'); card.className='card';
+      card.innerHTML = `
+        <img src="${p.img}" alt="${p.name}">
+        <h3>${p.name}</h3>
+        <p>${p.desc}</p>
+        <div class="meta">
+          <div class="price">$${p.price.toFixed(2)}</div>
+          <button class="add-btn" data-id="${p.id}">Add to cart</button>
+        </div>`;
+      grid.appendChild(card);
+    });
+
+    // --- cart handling (E3: local only) ---
+    let cart = JSON.parse(localStorage.getItem('bh_cart') || '{}'); // {id:qty}
+
+    const cartCount = document.getElementById('cartCount');
+    const cartSlide = document.getElementById('cartSlide');
+    const cartBody = document.getElementById('cartBody');
+    const cartEmpty = document.getElementById('cartEmpty');
+    const cartTotal = document.getElementById('cartTotal');
+    const checkoutBtn = document.getElementById('checkoutBtn');
+
+    function saveCart(){ localStorage.setItem('bh_cart', JSON.stringify(cart)); }
+    function getCartItems(){ return Object.keys(cart).map(id=>{ const prod = products.find(p=>p.id==id); return {...prod, qty:cart[id]}; }); }
+    function updateCartUI(){
+      const items = getCartItems();
+      cartCount.textContent = items.reduce((s,i)=>s+i.qty,0);
+      // render body
+      cartBody.innerHTML='';
+      if(items.length===0){ cartBody.appendChild(cartEmpty); cartTotal.textContent='$0.00'; return; }
+      items.forEach(it=>{
+        const div = document.createElement('div'); div.className='cart-item';
+        div.innerHTML = `
+          <img src="${it.img}" alt="${it.name}">
+          <div class="info">
+            <div style="display:flex;justify-content:space-between;align-items:center"><strong>${it.name}</strong><span style="color:var(--accent);font-weight:700">$${(it.price*it.qty).toFixed(2)}</span></div>
+            <div style="color:var(--muted);font-size:0.9rem">${it.desc}</div>
+          </div>
+          <div class="qty-controls">
+            <button class="dec" data-id="${it.id}">-</button>
+            <div style="min-width:28px;text-align:center">${it.qty}</div>
+            <button class="inc" data-id="${it.id}">+</button>
+          </div>`;
+        cartBody.appendChild(div);
+      });
+      // attach qty handlers
+      cartBody.querySelectorAll('.inc').forEach(b=>b.addEventListener('click',()=>{ const id=b.dataset.id; cart[id]= (cart[id]||0)+1; saveCart(); updateCartUI(); }));
+      cartBody.querySelectorAll('.dec').forEach(b=>b.addEventListener('click',()=>{ const id=b.dataset.id; cart[id]= (cart[id]||0)-1; if(cart[id]<=0) delete cart[id]; saveCart(); updateCartUI(); }));
+      const total = items.reduce((s,i)=>s + i.price*i.qty,0); cartTotal.textContent = '$'+total.toFixed(2);
+    }
+
+    // initial UI
+    updateCartUI();
+
+    // add to cart buttons
+    document.querySelectorAll('.add-btn').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        const id = btn.dataset.id; cart[id] = (cart[id]||0)+1; saveCart(); updateCartUI();
+        // brief feedback
+        btn.textContent='Added'; setTimeout(()=>btn.textContent='Add to cart',900);
+      });
+    });
+
+    // open/close cart
+    document.getElementById('cartToggle').addEventListener('click', ()=>{ cartSlide.classList.toggle('open'); });
+    document.getElementById('closeCart').addEventListener('click', ()=>{ cartSlide.classList.remove('open'); });
+
+    // checkout (E3: local only) - for now show a summary and clear cart
+    checkoutBtn.addEventListener('click', ()=>{
+      const items = getCartItems(); if(items.length===0){ alert('Your cart is empty.'); return; }
+      // show basic summary
+      const summary = items.map(it=> `${it.qty} x ${it.name} — $${(it.price*it.qty).toFixed(2)}`).join('\n');
+      const total = items.reduce((s,i)=>s + i.price*i.qty,0);
+      const confirmed = confirm(`Order summary:\n\n${summary}\n\nTotal: $${total.toFixed(2)}\n\nThis demo saves the order locally (E3). Click OK to clear the cart.`);
+      if(confirmed){ cart = {}; saveCart(); updateCartUI(); cartSlide.classList.remove('open'); alert('Order cleared (demo mode).'); }
+    });
+
+    // keep header on top like before
+    const header = document.getElementById('siteHeader');
+    window.addEventListener('scroll', ()=>{ if(window.scrollY>30) header.classList.add('scrolled'); else header.classList.remove('scrolled'); });
+
+  </script>
+</body>
+</html>
