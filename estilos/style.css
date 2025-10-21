@@ -189,12 +189,14 @@
 }
 
     @media (max-width:800px){
+  /* CORREÇÃO DO HEADER (EM COLUNA E CENTRALIZADO) 
+  e alinhamento de todos os itens */
   header{
-    /* MUDANÇA: Altera para layout de coluna (Logo em cima, Menu Toggle embaixo) */
+    /* Altera para layout de coluna (Logo em cima, Menu Toggle embaixo) */
     flex-direction: column; 
-    /* MUDANÇA: Deixa a altura se ajustar ao conteúdo vertical (logo + menu toggle) */
+    /* Deixa a altura se ajustar ao conteúdo vertical (logo + menu toggle) */
     height: auto; 
-    /* Centraliza os itens horizontalmente (mantido) */
+    /* Centraliza os itens horizontalmente */
     align-items: center; 
     /* Ajuste o padding vertical e horizontal */
     padding: 15px 18px; 
@@ -205,22 +207,61 @@
     margin-bottom: 5px; 
   }
 
+  /* CORREÇÃO DO FORMULÁRIO (PRINCIPAL CAUSA DO DESALINHAMENTO)
+  1. Altera o layout do container subs para coluna.
+  2. Torna o input de email e o formulário responsivos. 
+  */
+  .subs {
+    flex-direction: column; /* Coloca o texto e o form em pilhas */
+    align-items: center;
+    text-align: center;
+  }
+  
+  .form {
+      width: 100%; /* Força o container do form a ocupar 100% da largura */
+      margin-top: 15px;
+      display: flex; /* Mantém o input e o botão inline */
+      gap: 10px;
+  }
+  
+  .form input[type=email]{
+    width: 100%; /* Remove a largura fixa de 360px */
+    flex-grow: 1; /* Permite que o input preencha o espaço restante */
+  }
+
+  /* CORREÇÃO DO FOOTER 
+  Ajusta o padding do rodapé para não ser muito grande.
+  */
+  footer {
+    padding: 18px 20px;
+    flex-direction: column; /* Empilha o texto e os ícones */
+    text-align: center;
+    gap: 10px;
+  }
+  
+  /* Corrige o layout da seção de contatos (4 colunas para 1) */
+  #containercontato{
+    grid-template-columns:1fr;
+    padding: 30px 20px;
+    margin: 0 auto;
+  }
+
+  /* AJUSTES NO MENU NAV (para funcionar com o novo header)
+  */
   nav {
     position: fixed;
-    /* MUDANÇA: Define o 'top' fixo para garantir que o menu comece abaixo do cabeçalho vertical */
-    top: 140px; 
+    /* Novo topo do menu para começar logo abaixo do cabeçalho vertical */
+    top: 110px; 
     left: 0;
     width: 100%;
     padding: 10px;
-    /* MUDANÇA: Altura máxima ajustada para o novo valor do 'top' */
-    max-height: calc(100vh - 140px); 
+    /* Altura máxima ajustada para o novo valor do 'top' */
+    max-height: calc(100vh - 110px); 
     overflow-y: auto; 
     background: var(--bg-2);
     transform: translateY(-100%);
     
-    /* CORREÇÃO: Adiciona 'visibility: hidden' para ocultar totalmente o menu */
     visibility: hidden; 
-    /* CORREÇÃO: Atualiza a transição para incluir a propriedade 'visibility' */
     transition: transform 0.3s ease, visibility 0.3s; 
     
     z-index: 999; 
@@ -228,12 +269,10 @@
 
   nav.open {
     transform: translateY(0);
-    /* CORREÇÃO: Torna o menu visível quando aberto */
     visibility: visible; 
   }
 
   nav ul {
-    /* Esta é a definição correta e completa */
     flex-direction: column;
     align-items: center;
     padding: 20px 0;
@@ -244,32 +283,12 @@
     display: block;
   }
   
-  /* NOVO: Classe para o overlay (fundo escuro) */
-  .menu-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.7); 
-    z-index: 998; 
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s, visibility 0.3s;
-  }
-
-  .menu-overlay.open {
-    opacity: 1;
-    visibility: visible;
-  }
-  
-  /* Regras de estilo não relacionadas ao menu para manter a referência */
-  /* LINHA REDUNDANTE REMOVIDA AQUI */ 
+  /* ... (O restante das suas regras para @media (max-width:800px) ) ... */
   .play-btn{width:64px;height:64px}
   .video-container{height:300px}
   #modalGaleria img{max-width:95vw}
   section {
         padding: 20px; /* Ajuste o padding para seções */
         margin: 0 auto; /* Centraliza a seção */
-    }
+  }
 }
