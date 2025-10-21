@@ -197,7 +197,7 @@
       order: 1;
       padding: 0; /* Remove padding que possa vazar */
   }
-}
+
     @media (max-width:800px){
   header{
     /* Volta para o layout original (logo e menu-toggle lado a lado) */
