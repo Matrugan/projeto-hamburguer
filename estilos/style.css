@@ -151,12 +151,14 @@
     grid-template-columns:1fr;
     /* Adiciona padding interno para mobile (se não tiver) */
     padding: 30px 20px;
+    /* Adicionado para garantir centralização */
+    margin: 0 auto;
   }
   
   /* Garante que o texto ocupe toda a largura no mobile */
   .tx{width:100%}
   
-  /* CORREÇÃO: Faz a imagem aparecer novamente, se você quiser empilhar */
+  /* Faz a imagem aparecer novamente, se você quiser empilhar */
   .imghamb{
     display:block; 
     width: 100%;
@@ -173,50 +175,45 @@
       padding: 0; /* Remove padding que possa vazar */
   }
 
-  /* NOVO: Ajuste para a seção PARALLEX no mobile para evitar rolagem lateral */
-  #containerpara .img {
-    width: 100%; /* Garante que o container da imagem ocupe toda a largura */
-    display: flex;
-    flex-direction: column; /* Garante que as imagens fiquem empilhadas */
-    align-items: center; /* Centraliza as imagens */
-    gap: 20px; /* Espaçamento entre as imagens */
-    margin-bottom: 20px; /* Adiciona espaço entre as imagens e o texto "SPECIAL" */
-  }
-
-  /* NOVO: Torna as divs de imagem responsivas */
+  /* CORREÇÃO PRINCIPAL: Torna as divs de imagem do parallax responsivas e centralizadas */
   .opc1, .opc2 {
-    width: 100%; /* Força a largura a preencher o container (.img) */
-    max-width: 320px; /* Limita ao tamanho original para telas maiores que 320px */
-    margin: 0; /* Remove qualquer margem que possa causar overflow */
+    /* Define uma largura percentual para se adaptar à tela */
+    width: 90%; 
+    /* Mantém a largura máxima para que não fiquem muito grandes em tablets */
+    max-width: 320px; 
+    /* Centraliza o item dentro da coluna do grid */
+    justify-self: center; 
+    /* Adiciona margem para separação */
+    margin: 10px auto; 
   }
-  
 }
-  
-  /* Garante que o bloco de texto (.tx) fique em primeiro lugar */
-  #parallex .tx {
-      order: 1;
-      padding: 0; /* Remove padding que possa vazar */
-  }
 
     @media (max-width:800px){
   header{
-    /* Volta para o layout original (logo e menu-toggle lado a lado) */
-    flex-flow: row; 
-    /* Garante que o header tenha a altura padrão no mobile */
-    height: var(--header-h); 
-    /* Adiciona alinhamento vertical */
+    /* MUDANÇA: Altera para layout de coluna (Logo em cima, Menu Toggle embaixo) */
+    flex-direction: column; 
+    /* MUDANÇA: Deixa a altura se ajustar ao conteúdo vertical (logo + menu toggle) */
+    height: auto; 
+    /* Centraliza os itens horizontalmente (mantido) */
     align-items: center; 
-    /* Ajuste o padding horizontal para mobile */
-    padding: 10px 18px; 
+    /* Ajuste o padding vertical e horizontal */
+    padding: 15px 18px; 
   }
   
+  /* Adiciona um pequeno espaçamento entre o logo e o ícone do menu */
+  #logo {
+    margin-bottom: 5px; 
+  }
+
   nav {
     position: fixed;
-    top: var(--header-h); 
+    /* MUDANÇA: Define o 'top' fixo para garantir que o menu comece abaixo do cabeçalho vertical */
+    top: 140px; 
     left: 0;
     width: 100%;
     padding: 10px;
-    max-height: calc(100vh - var(--header-h));
+    /* MUDANÇA: Altura máxima ajustada para o novo valor do 'top' */
+    max-height: calc(100vh - 140px); 
     overflow-y: auto; 
     background: var(--bg-2);
     transform: translateY(-100%);
