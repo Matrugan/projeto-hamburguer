@@ -200,6 +200,14 @@
     opacity: 1;
     visibility: visible;
   }
+
+  body {
+    font-family: 'Montserrat', system-ui, Arial, Helvetica, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    /* CORREÇÃO: Impede a rolagem horizontal causada por elementos que vazam */
+    overflow-x: hidden; 
+}
   
   /* Regras de estilo não relacionadas ao menu para manter a referência */
   /* LINHA REDUNDANTE REMOVIDA AQUI */ 
