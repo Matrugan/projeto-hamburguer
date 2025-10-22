@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="imagem/logo.webp" type="image/x-icon">
+    <title>Place Your Order - Burger House</title>
+    <link rel="stylesheet" href="estilos/style.css"> 
+    <link rel="stylesheet" href="estilos/order.css"> 
+    
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+<header id="siteHeader">
+    <div id="logo"><img src="imagem/logo.webp" alt="logo"></div>
+    <div id="menuToggle" class="menu-toggle">
+        <i class="fa-solid fa-bars"></i>
+    </div>
+    <nav>
+        <ul>
+            <li><a href="index.html#burguer">Home</a></li>
+            <li><a href="index.html#about">About us</a></li>
+            <li><a href="index.html#services">Services</a></li>
+            <li><a href="index.html#parallex">Specials</a></li>
+            <li><a href="index.html#galeria">Gallery</a></li>
+            <li><a href="index.html#contato">Contact</a></li>
+            <li><a href="order.html" class="btn-primary">Order Now</a></li>
+        </ul>
+    </nav>
+    <div class="cart-button" id="cartToggle">
+        <i class="fa-solid fa-cart-shopping"></i> 
+        <span class="cart-count" id="cartCount">0</span>
+      </div>
+</header>
+
+    <div id="menuOverlay" class="menu-overlay"></div> 
+    
+    <main class="page-content"> 
+    <section class="order-section">
+        <h1 class="section-title">Build Your Order</h1>
+        
+        <div class="order-container">
+            
+            <div class="product-catalog">
+                <h2 class="sub-title">Our Sandwiches</h2>
+                <div class="catalog-grid" id="productGrid">
+                    
+                    <div class="product-card">
+                        <img src="imagem/galeria/hamb4.jpg" alt="Classic Cheddar Burger">
+                        <div class="card-info">
+                            <h3>Classic Cheddar</h3>
+                            <p class="description">Artisan bun, 180g beef patty, cheddar cheese, and crispy bacon.</p>
+                            <span class="price">R$ 29.90</span>
+                            <button class="add-to-cart-btn" data-product-id="1">Add to Cart <i class="fa-solid fa-cart-plus"></i></button>
+                        </div>
+                    </div>
+                    
+                    <div class="product-card">
+                        <img src="imagem/galeria/hamb2.webp" alt="Smash House Burger">
+                        <div class="card-info">
+                            <h3>Smash House</h3>
+                            <p class="description">Brioche bun, two 100g smash patties, cheese, pickles, and our special sauce.</p>
+                            <span class="price">R$ 24.50</span>
+                            <button class="add-to-cart-btn" data-product-id="2">Add to Cart <i class="fa-solid fa-cart-plus"></i></button>
+                        </div>
+                    </div>
+                    
+                    <div class="product-card">
+                        <img src="imagem/galeria/hamb4.jpg" alt="Crispy Chicken Sandwich">
+                        <div class="card-info">
+                            <h3>Crispy Chicken</h3>
+                            <p class="description">Crunchy fried chicken breast, coleslaw, and a touch of smoked honey mustard.</p>
+                            <span class="price">R$ 32.00</span>
+                            <button class="add-to-cart-btn" data-product-id="3">Add to Cart <i class="fa-solid fa-cart-plus"></i></button>
+                        </div>
+                    </div>
+                    
+                    <div class="product-card">
+                        <img src="imagem/galeria/hamb2.webp" alt="BBQ Beast Burger">
+                        <div class="card-info">
+                            <h3>BBQ Beast</h3>
+                            <p class="description">200g patty, crispy onions, pepper jack cheese, and our thick, smoky BBQ sauce.</p>
+                            <span class="price">R$ 35.50</span>
+                            <button class="add-to-cart-btn" data-product-id="4">Add to Cart <i class="fa-solid fa-cart-plus"></i></button>
+                        </div>
+                    </div>
+                    
+                    <div class="product-card">
+                        <img src="imagem/galeria/hamb4.jpg" alt="Veggie Garden Burger">
+                        <div class="card-info">
+                            <h3>Veggie Garden</h3>
+                            <p class="description">Black bean patty, provolone, fresh lettuce, tomato, and basil pesto.</p>
+                            <span class="price">R$ 28.00</span>
+                            <button class="add-to-cart-btn" data-product-id="5">Add to Cart <i class="fa-solid fa-cart-plus"></i></button>
+                        </div>
+                    </div>
+                    
+                    <div class="product-card">
+                        <img src="imagem/galeria/hamb2.webp" alt="Mega Double Bacon Burger">
+                        <div class="card-info">
+                            <h3>Mega Double Bacon</h3>
+                            <p class="description">Two 150g patties, double cheddar cheese, and a generous amount of smoked bacon strips.</p>
+                            <span class="price">R$ 39.90</span>
+                            <button class="add-to-cart-btn" data-product-id="6">Add to Cart <i class="fa-solid fa-cart-plus"></i></button>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+
+            <aside class="cart-summary" id="cartSlide">
+                <div class="cart-slide-header">
+                    <h2 class="sub-title">Your Cart</h2>
+                </div>
+                <div class="cart-items" id="cartBody">
+                    <div class="cart-empty" id="cartEmpty">
+                        <i class="fa-solid fa-basket-shopping"></i>
+                        <p>Your cart is empty.</p>
+                    </div>
+                    </div>
+                
+                <div class="cart-footer">
+                    <div class="summary-details">
+                        <div class="summary-line"><span>Subtotal:</span> <span id="cartSubtotal">R$ 0.00</span></div>
+                        <div class="summary-line"><span>Delivery:</span> <span id="cartDelivery">R$ 10.00</span></div>
+                    </div>
+                    
+                    <div class="total-line">
+                        <strong>Total:</strong>
+                        <span id="cartTotal">R$ 10.00</span>
+                    </div>
+                    <button class="checkout-btn btn-primary" id="checkoutBtn" disabled>Checkout (WhatsApp)</button>
+                </div>
+            </aside>
+
+        </div>
+    </section>
+</main>
+    <footer>
+        <p>Website developed by <a href="#">Mateus Dos Anjos</a></p>
+        <div>
+            <a href="##"><i class="fa-brands fa-facebook"></i></a>
+            <a href="#"><i class="fa-brands fa-twitter"></i></a>
+            <a href="#"><i class="fa-brands fa-skype"></i></a>
+            <a href="#"><i class="fa-brands fa-instagram"></i></a>
+        </div>
+    </footer>
+    <script src="script.js"></script>
+    <div id="modalGaleria">
+        <span id="fecharModal">&times;</span>
+        <img id="imgModal" src="" alt="Imagem ampliada">
+    </div>
+
+    <script src="order.js"></script> 
+
+</body>
+</html>

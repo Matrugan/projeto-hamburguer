@@ -1,0 +1,409 @@
+/* Importa as cores e variáveis do style.css */
+/* style.css - (Regras Globais) */
+:root{
+    --principal: black;
+    --secund: #ffb84c;
+    --text: white;
+    --sombra: rgba(0, 0, 0, 0.285) ;
+    --text_inv:rgb(128, 128, 128);
+    --bg:#080707; /* deep black */
+    --bg-2:#0f0f10; /* slightly lighter */
+    --accent:var(--secund); /* Usando secund como accent */
+    --header-h: 90px; /* Variável para altura do header */
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    transition: 0.5s;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body{
+    font-family: 'Montserrat', system-ui, Arial, Helvetica, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+}
+
+a{
+    text-decoration: none;
+    color: inherit;
+}
+
+/* ===== HEADER (Copiado do style.css e ajustado) ===== */
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--header-h);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 40px;
+  z-index: 9999;
+  background: rgb(8, 7, 7);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+  margin: 0;
+}
+
+#logo > img{
+    height: 70px; /* Reduzido o tamanho para se adequar ao header fixo */
+    width: 70px;
+    padding: 10px;
+}
+
+nav ul{
+    display: flex;
+    list-style: none;
+    gap: 20px;
+}
+
+nav a{
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.2rem;
+    color: var(--text);
+}
+nav a:hover{
+    color: var(--secund);
+}
+
+/* Botão do Carrinho (no Header) */
+.cart-button {
+    cursor: pointer;
+    font-size: 1.5rem;
+    position: relative;
+    padding: 10px;
+    color: var(--text);
+}
+.cart-button:hover {
+    color: var(--secund);
+}
+.cart-count {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: var(--secund);
+    color: var(--principal);
+    border-radius: 50%;
+    padding: 2px 6px;
+    font-size: 0.7rem;
+    font-weight: bold;
+    min-width: 20px;
+    text-align: center;
+}
+
+/* Esconde o ícone de menu no desktop */
+#menu-icon {
+    display: none;
+}
+#mobile-nav {
+    display: none; /* Esconde a nav padrão móvel */
+}
+
+/* ======================================= */
+/* ESTILOS DA PÁGINA DE PEDIDOS (ORDER) */
+/* ======================================= */
+
+/* A área de pedidos precisa de um padding extra no topo para compensar o header fixo */
+.page-content {
+    margin-top: var(--header-h); /* Compensação da altura do header */
+    padding: 40px 6vw;
+    background: var(--bg-2);
+}
+
+/* Título da Seção (Our Sandwiches) */
+.section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 5rem;
+    color: var(--accent);
+    text-align: center;
+    margin-bottom: 40px;
+    letter-spacing: 2px;
+}
+
+/* Títulos das Sub-seções (Your Cart / Sub-title do Catálogo) */
+.sub-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.5rem;
+    /* CORREÇÃO APLICADA AQUI: Altera para a cor de destaque */
+    color: var(--secund); 
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* Layout Principal (Catálogo + Carrinho) */
+.order-container {
+    display: grid;
+    grid-template-columns: 2.5fr 1fr;
+    gap: 40px;
+}
+
+/* Estilo do Card de Produto */
+.catalog-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.product-card {
+    background: var(--bg);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px var(--sombra);
+    transition: transform 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+}
+
+.product-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.product-info {
+    padding: 15px;
+    text-align: center;
+}
+
+.product-info h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2rem;
+    color: var(--secund);
+    margin-bottom: 5px;
+}
+
+.product-info p {
+    font-size: 0.95rem;
+    color: var(--text_inv);
+    margin-bottom: 15px;
+}
+
+.price {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 15px;
+}
+
+.add-to-cart-btn {
+    background: var(--secund);
+    color: var(--principal);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    width: 100%;
+}
+.add-to-cart-btn:hover {
+    background: var(--accent);
+}
+
+/* Estilos do Carrinho (Cart Summary) */
+.cart-summary {
+    background: var(--bg);
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+    position: sticky;
+    top: 110px;
+    height: fit-content;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.cart-items {
+    max-height: 50vh; /* Limita a altura da lista de itens */
+    overflow-y: auto;
+    padding-right: 10px; /* Espaço para a barra de rolagem */
+}
+
+/* Estilo do Item no Carrinho */
+.cart-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--text); 
+}
+.cart-item:last-child {
+    border-bottom: none;
+}
+
+.item-details {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    margin-right: 15px;
+}
+
+/* CORREÇÃO APLICADA AQUI: Garante que o nome do item seja visível no checkout */
+.item-name {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--secund); /* Força a cor de destaque (dourado) */
+}
+.item-price {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--accent);
+    margin-left: auto; /* Empurra o preço para a direita */
+}
+
+/* Controles de Quantidade */
+.quantity-controls {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-left: 15px;
+}
+.quantity-controls button {
+    background: var(--bg-2);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--text);
+    width: 25px;
+    height: 25px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+.quantity-controls button:hover {
+    background: var(--accent);
+    color: var(--bg);
+    border-color: var(--accent);
+}
+.quantity-controls .item-quantity {
+    padding: 0 5px;
+    font-size: 1rem;
+    min-width: 15px; 
+    text-align: center;
+}
+
+/* Botão de Remover */
+.remove-btn {
+    background: transparent;
+    border: none;
+    color: var(--text_inv);
+    cursor: pointer;
+    font-size: 1rem;
+    margin-left: 10px;
+}
+.remove-btn:hover {
+    color: red;
+}
+
+.cart-empty {
+    text-align: center;
+    padding: 40px 0;
+    color: var(--text_inv);
+}
+
+.cart-empty i {
+    font-size: 3rem;
+    color: var(--accent);
+    margin-bottom: 10px;
+}
+
+.cart-footer {
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    margin-top: 20px;
+}
+
+.summary-details {
+    margin-bottom: 10px;
+}
+.summary-line {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.1rem;
+    margin-bottom: 5px;
+    color: var(--text_inv);
+}
+
+.total-line {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    color: var(--text);
+}
+
+.checkout-btn {
+    width: 100%;
+    background: var(--secund);
+    color: var(--principal);
+    border: none;
+    padding: 12px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 1.1rem;
+}
+.checkout-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* ======================================= */
+/* FOOTER (Geral) */
+/* ======================================= */
+
+footer {
+    text-align: center;
+    padding: 20px;
+    background: var(--principal); 
+    color: var(--text_inv);
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+footer a {
+    color: var(--secund);
+    font-weight: 600;
+}
+
+/* ======================================= */
+/* RESPONSIVIDADE (Mobile) */
+/* ======================================= */
+
+@media (max-width: 900px) {
+    header {
+        padding: 10px 20px;
+    }
+    nav ul {
+        display: none; /* Esconde a navegação normal */
+    }
+    .page-content {
+        padding: 20px 4vw;
+    }
+    .order-container {
+        grid-template-columns: 1fr; /* Stack em mobile */
+        gap: 30px;
+    }
+    .catalog-grid {
+        grid-template-columns: 1fr; /* Apenas 1 coluna em telas menores */
+    }
+    .cart-summary {
+        position: static; /* Não gruda em mobile */
+    }
+}
