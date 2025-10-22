@@ -4,233 +4,176 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="imagem/logo.webp" type="image/x-icon">
-    <title>Document</title>
-    <link rel="stylesheet" href="estilos/style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="..." crossorigin="anonymous">
+    <title>Burguer House - Sabor, Qualidade e Paixão</title>
+    <link rel="stylesheet" href="estilos/style.css"> 
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
-<header>
-        <div id="logo">
-            <img src="imagem/logo.webp" alt="logo">
-        </div>
-        <i class="fa-solid fa-bars" id="menu-icon"></i>
-        
-        <nav id="mobile-nav">
-            <ul>
-                <li><a href="#burguer">Home</a></li>
-                <li><a href="#about">About us</a></li>
-                <li><a href="#services">Services</a></li>
-                <li><a href="#parallex">Parallex</a></li>
-                <li><a href="#galeria">Gallery</a></li>
-                <li><a href="#contato">Contact Us</a></li>
-                <li><a href="order.html">Order</a></li>
-            </ul>
-        </nav>
-    </header>
-    <main>
-        <div id="modalGaleria">
-        <span id="fecharModal">&times;</span>
-        <img id="imgModal" src="" alt="Imagem ampliada">
+
+<header id="siteHeader">
+    <div id="logo"><img src="imagem/logo.webp" alt="logo"></div>
+    <div id="menuToggle" class="menu-toggle">
+        <i class="fa-solid fa-bars"></i>
     </div>
-        <section id="burguer">
-            <h1>Burguer</h1>
-            <p>The perfect bite is waiting for you. Fresh ingredients, handcrafted burgers, and a flavor that makes every moment unforgettable.?</p>
-            <a href="#">Read More</a>
-        </section>
-        <section id="about">
-            <h1>ABOUT US</h1>
-            <div id="containerus">  
-                <div class="hamburguer">
-                    <img src="imagem/hamburguer-nos.png" alt="hamburguer">
-                </div>
-                <div class="nos">
-                    <h3>ABOUT US</h3>
-                    <h2>Grilled Chiken</h2>
-                    <h1>BURGUER</h1>
-                    <h2>Limited Offer</h2>
-                    <p>At Hamburgueria Burguer, we believe every bite counts. We select fresh, never frozen, beef and pair it with artisanal buns baked daily. Our goal is to offer more than just a quick meal—we strive for a delicious and welcoming experience. Here, every ingredient matters, from the crisp lettuce to the special sauces prepared on-site. Come visit us, smell the barbecue aroma, hear the grill sizzle, and enjoy a setting where friends gather to savor a good burger.</p>
-                    <p>Mon-Fri: 9 AM - 22PM <br>
-                    Saturday: 9 AM - 20PM</p>
-                    <a href="#">Read More</a>
-                </div>
-            </div>
-        </section>
-        <section id="services">
-            <h1>SERVICES</h1>
-            <div id="containerserv">
+    <nav>
+        <ul>
+            <li><a href="#burguer">HOME</a></li>
+            <li><a href="#about">ABOUT US</a></li>
+            <li><a href="#services">SERVICES</a></li>
+            <li><a href="#parallex">SPECIAL</a></li>
+            <li><a href="#galeria">GALLERY</a></li>
+            <li><a href="#contato">CONTACT</a></li>
+            <li><a href="order.html">ORDER</a></li>
+        </ul>
+    </nav>
+</header>
+<div id="menuOverlay" class="menu-overlay"></div> 
 
-                <div class="tx">
-                    <div class="delivery">
-                        <i class="fas fa-truck"></i>
-                        <h3>Free Delivery</h3>
-                        <p>Your order delivered fast, fresh and hot — right to your door.</p>
-                    </div>
-                    <div class="pay">
-                        <i class="fa-solid fa-sack-dollar"></i>
-                        <h3>Secure Payment</h3>
-                        <p>Pay with safety and convenience using cards, Pix, or digital wallets.</p>
-                    </div>
-                    <div class="return">
-                        <i class="fa-solid fa-repeat"></i>
-                        <h3>Free Returns</h3>
-                        <p>Not satisfied? We’ll fix it or replace it. Your happiness comes first.</p>
-                    </div>
-                    <div class="gift">
-                        <i class="fa-solid fa-gift"></i>
-                        <h3>Gift Service</h3>
-                        <p>Surprise someone with our special combos and exclusive gift options.</p>
-                    </div>
-                </div>
-
-                <div class="imghamb">
-                    <img src="imagem/Hamburguer-Delivery.webp" alt="hamburguer">
-                </div>
-            </div>
-        </section>
-        <section id="parallex">
-            <h1>PARALLEX</h1>
-            <div id="containerpara">
-                <div class="img">
-                    <div class="opc1">
-
-                    </div>
-                    <div class="opc2">
-
-                    </div>
-                </div>
-                <div class="text">
-                    <h3>Weekend's</h3>
-                    <h1>SPECIAL</h1>
-                    <h3 class="baixo">Dinner For You.......</h3>
-                    <p>Weekends taste better with our exclusive specials! Enjoy handcrafted burgers, crispy fries and a cold drink <br>
-                    the perfect combo to share with friends and family.</p>
-                </div>
-            </div>
-        </section>
-        <section id="galeria">
-            <h1>GALLERY</h1>
-                <div id="containerimg">
-                    <div class="img-item">
-                        <img src="imagem/galeria/hamb1.jpg" alt="Hamburguer">
-                        <div class="overlay"><i class="fa-solid fa-search"></i></div>
-                    </div>
-                    <div class="img-item">
-                        <img src="imagem/galeria/hamb2.webp" alt="Hamburguer">
-                        <div class="overlay"><i class="fa-solid fa-search"></i></div>
-                    </div>
-                    <div class="img-item">
-                        <img src="imagem/galeria/hamb3.jpg" alt="Hamburguer">
-                        <div class="overlay"><i class="fa-solid fa-search"></i></div>
-                    </div>
-                    <div class="img-item">
-                        <img src="imagem/galeria/hamb4.jpg" alt="Hamburguer">
-                        <div class="overlay"><i class="fa-solid fa-search"></i></div>
-                    </div>
-                    <div class="img-item">
-                        <img src="imagem/galeria/hamb5.jpg" alt="Hamburguer">
-                        <div class="overlay"><i class="fa-solid fa-search"></i></div>
-                    </div>
-                    <div class="img-item">
-                        <img src="imagem/galeria/hamb6.webp" alt="Hamburguer">
-                        <div class="overlay"><i class="fa-solid fa-search"></i></div>
-                    </div>
-                    <div class="img-item">
-                        <img src="imagem/galeria/hamb7.webp" alt="Hamburguer">
-                        <div class="overlay"><i class="fa-solid fa-search"></i></div>
-                    </div>
-                    <div class="img-item">
-                        <img src="imagem/galeria/hamb8.webp" alt="Hamburguer">
-                        <div class="overlay"><i class="fa-solid fa-search"></i></div>
-                    </div>
-                </div>
-                <p><a href="#">See More</a></p>
-        </section>
-        <section id="testimonial">
-            <h1>TESTIMONIAL</h1>
-            <div id="containertest">
-                <div class="tex">
-                    <i class="fa-solid fa-quote-right"></i>
-                    <p>“Simply the best burger I’ve ever had. Juicy, flavorful, and cooked to perfection. Burguer House is now my favorite place in town!”
-                    </p>
-                    <h1>ANG LI</h1>
-                    <h3>CEO-FOUNDER</h3>
-                </div>
-                <div class="video">
-                    <div class="video-container">
-                        <video id="meuVideo" src="imagem/videoham.mp4"></video>
-                        <div class="play-btn" id="botaoPlay">
-                            <i class="fa-solid fa-play"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <section id="contato">
-            <h1>NEWSLETTER</h1>
-                <div class="subs">
-                    <div class="text">
-                        <h2> <i class="fa-solid fa-envelope"></i> SUBSCRIBE OUR NEWLETTER</h2>
-                    </div>
-                    <div class="form">
-                        <form action="#">
-                            <input type="email" name="email" id="imail" placeholder="Enter your email">
-                            <input type="submit" value="SUBSCRIBE" id="sub">
-                        </form>
-                    </div>
-                </div>
-            <div id="containercontato">
-                <div class="logo">
-                    <img src="imagem/logo.webp" alt="logo">
-                    <p>Burguer House — flavor, quality and passion for handcrafted burgers. Follow us and stay tuned for news, events and weekly specials.</p>
-                </div>
-                <div class="links">
-                    <h2>QUICK LINKS</h2>
-                    <ul>
-                        <li><a href="#burguer">Home</a></li>
-                        <li><a href="#about">About us</a></li>
-                        <li><a href="#services">Services</a></li>
-                        <li><a href="#parallex">Parallex</a></li>
-                        <li><a href="#galeria">Gallery</a></li>
-                        <li><a href="#contato">Contact Us</a></li>
-                    </ul>
-                </div>
-                <div class="contato">
-                    <h2>CONTACT US</h2>
-                    <div>
-                        <h3> <i class="fa-solid fa-location-dot"></i> Location:</h3>
-                        <p>A20 Green Hell Road.<br> FayetleVile. California.</p>
-                    </div>
-                    <div>  
-                        <h3> <i class="fa-solid fa-phone"> </i>Phone:</h3>
-                        <p>(21)9999-9999</p>
-                    </div>
-                    <div>
-                        <h3> <i class="fa-solid fa-envelope"></i> Email:</h3>
-                        <p>Burguer@gmail.com</p>
-                    </div>
-                </div>
-                <div class="insta">
-                    <h2>INSTAGRAM</h2>
-                </div>
-            </div>
-        </section>
-    </main>
-    <footer>
-        <p>Site feito por <a href="#">Mateus Dos Anjos</a></p>
-        <div>
-            <a href="##"><i class="fa-brands fa-facebook"></i></a>
-            <a href="#"><i class="fa-brands fa-twitter"></i></a>
-            <a href="#"><i class="fa-brands fa-skype"></i></a>
-            <a href="#"><i class="fa-brands fa-instagram"></i></a>
+<main>
+    
+    <section id="burguer" class="hero">
+        <div class="hero-content">
+            <h1>BURGUER HOUSE</h1>
+            <p>The flavor that takes you to paradise. Handmade burgers with fresh ingredients and passion in every detail.</p>
+            <a href="order.html" class="btn-primary">PLACE YOUR ORDER</a>
         </div>
-    </footer>
-    <script src="script.js">
+    </section>
 
-    </script>
-    <div id="modalGaleria">
-        <span id="fecharModal">&times;</span>
-        <img id="imgModal" src="" alt="Imagem ampliada">
+    <section id="about" class="section-padding section-dark">
+        <h2 class="section-title">ABOUT US</h2>
+        <div class="content-wrapper">
+            <p>Burguer House was born from a passion for authentic burgers. Our mission is to offer an unparalleled experience, using only premium ingredients, select meats, and fresh buns, handmade daily.</p>
+            <p>Since 2018, we've been serving the best, combining classic recipes with innovative twists. Visit us at A20 Green Hell Road, Fayetleville, California, and discover your new favorite burger.</p>
+        </div>
+    </section>
+
+    <section id="services" class="section-padding">
+        <h2 class="section-title">OUR SERVICES</h2>
+        <div class="services-grid">
+            <div class="service-item">
+                <i class="fa-solid fa-truck-fast"></i>
+                <h3>Fast Delivery</h3>
+                <p>Receive your order hot and fast, wherever you are.</p>
+            </div>
+            <div class="service-item">
+                <i class="fa-solid fa-store"></i>
+                <h3>Dine In</h3>
+                <p>Come enjoy our cozy and themed atmosphere.</p>
+            </div>
+            <div class="service-item">
+                <i class="fa-solid fa-medal"></i>
+                <h3>Quality Guaranteed</h3>
+                <p>Fresh, high-quality ingredients in all dishes.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="parallex" class="parallex-section">
+        <div class="overlay">
+            <h2 class="section-title">WEEKLY SPECIAL</h2>
+            <p>Try our House Classic - the burger that defines our history.</p>
+        </div>
+    </section>
+    
+    <section id="galeria" class="section-padding section-dark">
+        <h2 class="section-title">GALLERY</h2>
+        <div class="gallery-grid">
+            <div class="img-item"><img src="imagem/galeria/hamb1.jpg" alt="Burguer 1"></div>
+            <div class="img-item"><img src="imagem/galeria/hamb2.webp" alt="Burguer 2"></div>
+            <div class="img-item"><img src="imagem/galeria/hamb3.jpg" alt="Fries"></div>
+            <div class="img-item"><img src="imagem/galeria/hamb4.jpg" alt="Drink"></div>
+        </div>
+    </section>
+
+    <section id="contato" class="section-padding">
+        <h2 class="section-title">CONTACT US</h2>
+        <div class="contact-container">
+            <div class="form">
+                <h3>GET IN TOUCH</h3>
+                <form action="#">
+                    <input type="text" placeholder="Your Name" required>
+                    <input type="email" placeholder="Your Email" required>
+                    <input type="text" placeholder="Subject">
+                    <textarea placeholder="Message"></textarea>
+                    <button id="sub" class="btn-primary">SEND MESSAGE</button>
+                </form>
+            </div>
+            <div class="video-preview">
+                <h3>SEE OUR KITCHEN IN ACTION</h3>
+                <div class="video-wrapper">
+                    <video id="meuVideo" poster="imagem/videoham.mp4" muted loop>
+                        <source src="imagem/videoham.mp4" type="video/mp4">
+                    </video>
+                    <div id="botaoPlay" class="play-button">
+                        <i class="fa-solid fa-play"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="footer-info">
+        <div id="containercontato">
+            <div class="logo">
+                <img src="imagem/logo.webp" alt="logo">
+                <p>Burguer House — flavor, quality and passion for handcrafted burgers. Follow us and stay tuned for news, events and weekly specials.</p>
+            </div>
+            <div class="links">
+                <h2>QUICK LINKS</h2>
+                <ul>
+                    <li><a href="#burguer">Home</a></li>
+                    <li><a href="#about">About us</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#parallex">Special</a></li>
+                    <li><a href="#galeria">Gallery</a></li>
+                    <li><a href="#contato">Contact Us</a></li>
+                </ul>
+            </div>
+            <div class="contato">
+                <h2>CONTACT US</h2>
+                <div>
+                    <h3><i class="fa-solid fa-location-dot"></i> Location:</h3>
+                    <p>A20 Green Hell Road.<br>FayetleVile. California.</p>
+                </div>
+                <div>
+                    <h3><i class="fa-solid fa-phone"></i> Phone:</h3>
+                    <p>(21)9999-9999</p>
+                </div>
+                <div>
+                    <h3><i class="fa-solid fa-envelope"></i> Email:</h3>
+                    <p>Burguer@gmail.com</p>
+                </div>
+            </div>
+            <div class="insta">
+                <h2>INSTAGRAM</h2>
+                <div class="insta-grid">
+                    <img src="imagem/galeria/hamb9.webp" alt="Insta Pic 1">
+                    <img src="imagem/galeria/hamb6.webp" alt="Insta Pic 2">
+                    <img src="imagem/galeria/hamb7.webp" alt="Insta Pic 3">
+                    <img src="imagem/galeria/hamb5.jpg" alt="Insta Pic 4">
+                </div>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<footer>
+    <p>Site feito por <a href="https://github.com/Matrugan" target="_blank">Mateus Dos Anjos</a></p>
+    <div>
+        <a href="#"><i class="fa-brands fa-facebook"></i></a>
+        <a href="#"><i class="fa-brands fa-twitter"></i></a>
+        <a href="#"><i class="fa-brands fa-skype"></i></a>
+        <a href="#"><i class="fa-brands fa-instagram"></i></a>
     </div>
+</footer>
+
+<div id="modalGaleria">
+    <span id="fecharModal">&times;</span>
+    <img id="imgModal" src="" alt="Imagem ampliada">
+</div>
+
+<script src="script.js"></script>
 </body>
 </html>

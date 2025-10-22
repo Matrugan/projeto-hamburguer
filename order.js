@@ -1,37 +1,16 @@
-// --- MENU HAMBURGUER ---
-const menuToggle = document.getElementById('menuToggle');
-const nav = document.querySelector('header nav');
-const menuOverlay = document.getElementById('menuOverlay'); 
-
-// Função para abrir/fechar o menu e o overlay
-function toggleMenu() {
-    nav.classList.toggle('open');
-    menuOverlay.classList.toggle('open');
-    
-    // Opcional: Alterna o ícone entre fa-bars e fa-xmark
-    const icon = menuToggle.querySelector('i');
-    icon.classList.toggle('fa-bars');
-    icon.classList.toggle('fa-xmark');
-}
-
-// Abre/fecha o menu ao clicar no botão
-menuToggle.addEventListener('click', toggleMenu);
-
-// Fecha o menu ao clicar em um link (para rolagem suave ou navegação)
-nav.querySelectorAll('a').forEach(link => {
-    link.addEventListener('click', () => {
-        // Fecha o menu apenas se estiver aberto (para não interferir no desktop)
-        if (nav.classList.contains('open')) {
-            toggleMenu(); 
-        }
-    });
-});
-
-// Fecha o menu ao clicar no overlay
-menuOverlay.addEventListener('click', toggleMenu);
-
 document.addEventListener('DOMContentLoaded', () => {
-    // Variável para armazenar o carrinho
+    
+    // --- Dados de Produtos (Essencial para o catálogo funcionar) ---
+    const PRODUCTS = [
+        { id: 1, name: "Classic House", price: 35.50, description: "Our flagship: Brioche bread, 180g house blend, cheddar cheese, bacon, lettuce and special sauce.", image: "imagem/galeria/hamb1.jpg" },
+        { id: 2, name: "Veggie Delight", price: 32.00, description: "Chickpea burger, grilled curd cheese, sun-dried tomatoes, arugula and basil mayonnaise.", image: "imagem/order/veggie.png" },
+        { id: 3, name: "Double Trouble", price: 48.90, description: "For the hungry: 2 x 180g house blend, prato cheese, caramelized onion and barbecue sauce.", image: "imagem/order/double.jpg" },
+        { id: 4, name: "Fritas Rústicas", price: 15.00, description: "Freshly fried rustic potatoes seasoned with sea salt and rosemary.", image: "imagem/order/batata.jpg" },
+        { id: 5, name: "Onion Rings", price: 18.00, description: "Crispy onion rings served with homemade ranch dressing.", image: "imagem/order/onionrings.jpg" },
+        { id: 6, name: "Milkshake Clássico", price: 22.00, description: "Vanilla, chocolate, or strawberry milkshake. (400ml)", image: "imagem/order/milkshake.jpeg" }
+    ];
+
+    // Variáveis e Constantes
     let cart = [];
     const DELIVERY_FEE = 10.00; // Custo de entrega fixo
 
@@ -39,14 +18,36 @@ document.addEventListener('DOMContentLoaded', () => {
     const productGrid = document.getElementById('productGrid');
     const cartBody = document.getElementById('cartBody');
     const cartTotal = document.getElementById('cartTotal');
-    const cartSubtotal = document.getElementById('cartSubtotal'); // Novo
-    const cartDelivery = document.getElementById('cartDelivery'); // Novo
+    const cartSubtotal = document.getElementById('cartSubtotal');
+    const cartDelivery = document.getElementById('cartDelivery');
     const cartCount = document.getElementById('cartCount');
     const cartEmpty = document.getElementById('cartEmpty');
     const checkoutBtn = document.getElementById('checkoutBtn');
+    
+    // Elementos do Header (reutilizados do script.js)
+    const cartToggleButton = document.getElementById('cartToggle');
 
     // Funções de Utilitário
     const formatCurrency = (amount) => `R$ ${amount.toFixed(2).replace('.', ',')}`;
+
+    // 0. Renderiza o Catálogo
+    const renderProducts = () => {
+        productGrid.innerHTML = PRODUCTS.map(product => `
+            <div class="product-card">
+                <img src="${product.image}" alt="${product.name}">
+                <div class="product-info">
+                    <h3 data-product-id="${product.id}">${product.name}</h3>
+                    <p>${product.description}</p>
+                    <div class="price-container">
+                        <span class="price">${formatCurrency(product.price)}</span>
+                        <button class="add-to-cart-btn btn-primary" data-product-id="${product.id}">
+                            <i class="fa-solid fa-plus"></i> Add
+                        </button>
+                    </div>
+                </div>
+            </div>
+        `).join('');
+    };
 
     // 1. Renderiza o Carrinho (Função principal de atualização da UI)
     const renderCart = () => {
@@ -54,6 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
         let subtotal = 0;
         let totalItems = 0;
 
+        // Atualiza status do carrinho vazio/cheio
         if (cart.length === 0) {
             cartEmpty.style.display = 'block';
             checkoutBtn.disabled = true;
@@ -61,7 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
             cartEmpty.style.display = 'none';
             checkoutBtn.disabled = false;
-            cartDelivery.textContent = formatCurrency(DELIVERY_FEE); 
+            cartDelivery.textContent = formatCurrency(DELIVERY_FEE);
         }
 
         cart.forEach((item) => {
@@ -71,104 +73,94 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const cartItem = document.createElement('div');
             cartItem.className = 'cart-item';
-            
-            // CORREÇÃO: Garante que item.name seja renderizado na div item-name
             cartItem.innerHTML = `
-                <div class="item-details">
-                    <div class="item-name">${item.name}</div> 
-                    <div class="item-price">${formatCurrency(itemTotal)}</div>
-                </div>
+                <div class="item-name">${item.name}</div>
                 <div class="quantity-controls">
-                    <button class="qty-btn decrease" data-product-id="${item.id}">-</button>
+                    <button data-product-id="${item.id}" data-action="decrement">-</button>
                     <span class="item-quantity">${item.quantity}</span>
-                    <button class="qty-btn increase" data-product-id="${item.id}">+</button>
+                    <button data-product-id="${item.id}" data-action="increment">+</button>
                 </div>
-                <button class="remove-btn" data-product-id="${item.id}"><i class="fa-solid fa-trash-can"></i></button>
+                <div class="item-price">${formatCurrency(itemTotal)}</div>
+                <button class="remove-btn" data-product-id="${item.id}"><i class="fa-solid fa-trash"></i></button>
             `;
-            
             cartBody.appendChild(cartItem);
         });
 
-        // Atualiza os totais
         const finalTotal = subtotal + (cart.length > 0 ? DELIVERY_FEE : 0);
+        
+        // Atualiza os totais
         cartSubtotal.textContent = formatCurrency(subtotal);
         cartTotal.textContent = formatCurrency(finalTotal);
         cartCount.textContent = totalItems;
+        
+        // Salva o carrinho no localStorage (opcional, mas bom para persistência)
+        localStorage.setItem('burgerHouseCart', JSON.stringify(cart));
     };
 
-    // 2. Adicionar Item ao Carrinho
+    // 2. Adiciona Item ao Carrinho
     const addToCart = (productId) => {
-        // Encontra o item no catálogo (para obter nome e preço)
-        // Certifica-se de que estamos pegando o card correto
-        const productCard = productGrid.querySelector(`.product-card [data-product-id="${productId}"]`).closest('.product-card');
-        if (!productCard) return;
-
-        // O nome do produto é puxado do <h3> do card - Seletor validado pelo HTML
-        const name = productCard.querySelector('h3').textContent;
-        const priceText = productCard.querySelector('.price').textContent.replace('R$', '').replace(',', '.').trim();
-        const price = parseFloat(priceText);
+        const product = PRODUCTS.find(p => p.id === productId);
+        if (!product) return;
 
         const existingItem = cart.find(item => item.id === productId);
 
         if (existingItem) {
             existingItem.quantity += 1;
         } else {
-            cart.push({ id: productId, name, price, quantity: 1 });
+            cart.push({ 
+                id: productId, 
+                name: product.name, 
+                price: product.price, 
+                quantity: 1 
+            });
         }
-
         renderCart();
     };
 
-    // 3. Atualizar Quantidade do Item
-    const updateQuantity = (productId, change) => {
-        const itemIndex = cart.findIndex(item => item.id === productId);
+    // 3. Atualiza Quantidade
+    const updateQuantity = (productId, action) => {
+        const item = cart.find(i => i.id === productId);
+        if (!item) return;
 
-        if (itemIndex !== -1) {
-            cart[itemIndex].quantity += change;
-
-            // Remove o item se a quantidade for 0 ou menos
-            if (cart[itemIndex].quantity <= 0) {
-                cart.splice(itemIndex, 1);
+        if (action === 'increment') {
+            item.quantity += 1;
+        } else if (action === 'decrement') {
+            item.quantity -= 1;
+            if (item.quantity <= 0) {
+                removeFromCart(productId);
+                return;
             }
         }
         renderCart();
     };
 
-    // 4. Remover Item do Carrinho
-    const removeItem = (productId) => {
-        const itemIndex = cart.findIndex(item => item.id === productId);
-        if (itemIndex !== -1) {
-            cart.splice(itemIndex, 1);
-        }
+    // 4. Remove Item do Carrinho
+    const removeFromCart = (productId) => {
+        cart = cart.filter(item => item.id !== productId);
         renderCart();
     };
 
-    // 5. Listener para Botões "Adicionar" no Catálogo
+    // 5. Event Listeners para Adicionar Produto
     productGrid.addEventListener('click', (e) => {
-        const target = e.target.closest('.add-to-cart-btn');
-        if (target) {
-            const productId = parseInt(target.dataset.productId);
+        if (e.target.closest('.add-to-cart-btn')) {
+            const productId = parseInt(e.target.closest('.add-to-cart-btn').dataset.productId);
             addToCart(productId);
         }
     });
-    
-    // 6. Listener para Botões de Controle de Quantidade e Remoção no Carrinho
+
+    // 6. Event Listeners para Alterar/Remover do Carrinho
     cartBody.addEventListener('click', (e) => {
-        const target = e.target.closest('.qty-btn, .remove-btn');
-        if (!target) return;
+        const target = e.target;
+        const productId = parseInt(target.dataset.productId || target.closest('button')?.dataset.productId);
 
-        const productId = parseInt(target.dataset.productId);
-
-        if (target.classList.contains('increase')) {
-            updateQuantity(productId, 1);
-        } else if (target.classList.contains('decrease')) {
-            updateQuantity(productId, -1);
-        } else if (target.classList.contains('remove-btn')) {
-            removeItem(productId);
+        if (target.closest('.remove-btn')) {
+            removeFromCart(productId);
+        } else if (target.dataset.action === 'increment' || target.dataset.action === 'decrement') {
+            updateQuantity(productId, target.dataset.action);
         }
     });
     
-    // 7. Função de Checkout aprimorada (Geração de Link WhatsApp)
+    // 7. Função de Checkout (Geração de Link WhatsApp)
     checkoutBtn.addEventListener('click', () => {
         if (cart.length === 0) return;
 
@@ -186,23 +178,31 @@ document.addEventListener('DOMContentLoaded', () => {
         message += `\nEntrega: ${formatCurrency(DELIVERY_FEE)}`;
         message += `\n*TOTAL: ${formatCurrency(finalTotal)}*`;
         message += "\n---";
-        message += "\n\nAguardando confirmação de endereço/pagamento.";
+        message += "\n\nAguardando confirmação de endereço/pagamento. Por favor, inclua seu endereço completo.";
 
         // URL ENCODING para o link do WhatsApp
         const encodedMessage = encodeURIComponent(message);
         
-        // Substitua '55' + 'DDD' + 'NUMERO' pelo seu número de WhatsApp
+        // Substitua '5511999999999' pelo seu número de WhatsApp
         const whatsappNumber = '5511999999999'; 
         
         const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
-
+        
+        // Abre o link do WhatsApp
         window.open(whatsappUrl, '_blank');
         
-        // Limpar o carrinho após o checkout
-        cart = [];
-        renderCart();
+        // Opcional: Limpar o carrinho após o checkout
+        // cart = []; 
+        // renderCart();
     });
-
-    // Renderiza o carrinho na inicialização
-    renderCart();
+    
+    // --- Inicialização ---
+    // Tenta carregar o carrinho do localStorage ao iniciar
+    const savedCart = localStorage.getItem('burgerHouseCart');
+    if (savedCart) {
+        cart = JSON.parse(savedCart);
+    }
+    
+    renderProducts(); // Cria os cards de produtos
+    renderCart();     // Renderiza o carrinho inicial
 });
