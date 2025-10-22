@@ -1,3 +1,35 @@
+// --- MENU HAMBURGUER ---
+const menuToggle = document.getElementById('menuToggle');
+const nav = document.querySelector('header nav');
+const menuOverlay = document.getElementById('menuOverlay'); 
+
+// Função para abrir/fechar o menu e o overlay
+function toggleMenu() {
+    nav.classList.toggle('open');
+    menuOverlay.classList.toggle('open');
+    
+    // Opcional: Alterna o ícone entre fa-bars e fa-xmark
+    const icon = menuToggle.querySelector('i');
+    icon.classList.toggle('fa-bars');
+    icon.classList.toggle('fa-xmark');
+}
+
+// Abre/fecha o menu ao clicar no botão
+menuToggle.addEventListener('click', toggleMenu);
+
+// Fecha o menu ao clicar em um link (para rolagem suave ou navegação)
+nav.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+        // Fecha o menu apenas se estiver aberto (para não interferir no desktop)
+        if (nav.classList.contains('open')) {
+            toggleMenu(); 
+        }
+    });
+});
+
+// Fecha o menu ao clicar no overlay
+menuOverlay.addEventListener('click', toggleMenu);
+
 document.addEventListener('DOMContentLoaded', () => {
     // Variável para armazenar o carrinho
     let cart = [];

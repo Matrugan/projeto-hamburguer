@@ -64,18 +64,19 @@ header {
     padding: 10px;
 }
 
-nav ul{
+/* Estilos de navegação no desktop (padrão) */
+header nav ul{
     display: flex;
     list-style: none;
     gap: 20px;
 }
 
-nav a{
+header nav a{
     font-family: 'Bebas Neue', sans-serif;
     font-size: 1.2rem;
     color: var(--text);
 }
-nav a:hover{
+header nav a:hover{
     color: var(--secund);
 }
 
@@ -104,13 +105,33 @@ nav a:hover{
     text-align: center;
 }
 
-/* Esconde o ícone de menu no desktop */
-#menu-icon {
-    display: none;
+/* NOVO: Estilos do Botão Hamburger no Header */
+.menu-toggle {
+    display: none; /* Esconde no desktop */
+    font-size: 1.5rem;
+    color: var(--text);
+    cursor: pointer;
+    padding: 10px;
 }
-#mobile-nav {
-    display: none; /* Esconde a nav padrão móvel */
+
+/* NOVO: Estilos do Overlay (Fundo escuro quando o menu está aberto) */
+.menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7); 
+    z-index: 998; /* Abaixo do menu */
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s;
 }
+.menu-overlay.open {
+    opacity: 1;
+    visibility: visible;
+}
+
 
 /* ======================================= */
 /* ESTILOS DA PÁGINA DE PEDIDOS (ORDER) */
@@ -137,7 +158,7 @@ nav a:hover{
 .sub-title {
     font-family: 'Bebas Neue', sans-serif;
     font-size: 2.5rem;
-    /* CORREÇÃO APLICADA AQUI: Altera para a cor de destaque */
+    /* CORREÇÃO DE COR: Garante visibilidade nos títulos */
     color: var(--secund); 
     margin-bottom: 20px;
     text-align: center;
@@ -230,9 +251,9 @@ nav a:hover{
 }
 
 .cart-items {
-    max-height: 50vh; /* Limita a altura da lista de itens */
+    max-height: 50vh;
     overflow-y: auto;
-    padding-right: 10px; /* Espaço para a barra de rolagem */
+    padding-right: 10px;
 }
 
 /* Estilo do Item no Carrinho */
@@ -255,7 +276,7 @@ nav a:hover{
     margin-right: 15px;
 }
 
-/* CORREÇÃO APLICADA AQUI: Garante que o nome do item seja visível no checkout */
+/* CORREÇÃO DE COR: Garante que o nome do item seja visível no checkout */
 .item-name {
     font-size: 1.1rem;
     font-weight: 600;
@@ -265,7 +286,7 @@ nav a:hover{
     font-size: 1.1rem;
     font-weight: 700;
     color: var(--accent);
-    margin-left: auto; /* Empurra o preço para a direita */
+    margin-left: auto;
 }
 
 /* Controles de Quantidade */
@@ -383,27 +404,66 @@ footer a {
 }
 
 /* ======================================= */
-/* RESPONSIVIDADE (Mobile) */
+/* RESPONSIVIDADE (Mobile - Inclui Hamburger) */
 /* ======================================= */
 
 @media (max-width: 900px) {
-    header {
-        padding: 10px 20px;
+    /* Menu Hamburger */
+    .menu-toggle {
+        display: block; /* Mostra o botão hamburger */
     }
-    nav ul {
-        display: none; /* Esconde a navegação normal */
+    
+    /* Configuração do menu móvel (off-canvas) */
+    header nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 70%;
+        height: 100vh;
+        background: var(--bg-2);
+        box-shadow: 2px 0 10px rgba(0, 0, 0, 0.5);
+        z-index: 999;
+        
+        /* Estado Fechado: Move para fora da tela */
+        transform: translateX(-100%); 
+        visibility: hidden;
+        transition: transform 0.3s ease, visibility 0.3s;
     }
+    
+    /* Estado Aberto */
+    header nav.open {
+        transform: translateX(0);
+        visibility: visible;
+    }
+
+    /* Estiliza a lista no menu móvel */
+    header nav ul {
+        flex-direction: column;
+        padding: 100px 20px 20px;
+        align-items: flex-start;
+        gap: 25px;
+    }
+    
+    header nav a {
+        font-size: 1.4rem;
+        color: var(--text);
+    }
+    header nav a:hover {
+        color: var(--secund);
+    }
+
+    /* Layout Geral */
     .page-content {
         padding: 20px 4vw;
     }
     .order-container {
-        grid-template-columns: 1fr; /* Stack em mobile */
+        grid-template-columns: 1fr;
         gap: 30px;
     }
     .catalog-grid {
-        grid-template-columns: 1fr; /* Apenas 1 coluna em telas menores */
+        grid-template-columns: 1fr;
     }
     .cart-summary {
-        position: static; /* Não gruda em mobile */
+        position: static;
     }
 }
